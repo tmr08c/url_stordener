@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# script/setup: Set up local environment to run the application
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+if test $(which asdf); then
+    echo "==> Installing languages via asdf…"
+    asdf install
+else
+    echo -e "It looks like you don't have 'asdf' install. That's okay! We are going to try to set up the project anyway...\n"
+    if test $(which elixir); then
+        echo -e "Using your current version of Elixir. Please consider installing the following versions if they don't match:\n"
+        cat .tool-versions
+    else
+        echo "It looks like you don't have Elixir installed. Please see
+        https://elixir-lang.org/install.html for set up instructions (though we
+        recommend using https://asdf-vm.com/guide/getting-started.html)"
+    fi
+fi
+
+echo "==> Running mix setup…"
+mix setup
