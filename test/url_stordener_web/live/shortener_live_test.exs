@@ -3,10 +3,10 @@ defmodule UrlStordenerWeb.ShortenerLiveTest do
 
   import Phoenix.LiveViewTest
 
-  test "generating a shortened URL", %{conn: conn} do
+  test "validate the destination URL", %{conn: conn} do
     {:ok, view, _} = live(conn, ~p"/")
 
     assert view |> element("form") |> render_submit(%{url_mapper: %{destination_url: ""}}) =~
-             "blank"
+             "can&#39;t be blank"
   end
 end
