@@ -7,12 +7,12 @@ defmodule UrlStordenerWeb.ShortenerLiveTest do
     test "validate the destination URL", %{conn: conn} do
       {:ok, view, _} = live(conn, ~p"/")
 
-      assert view |> element("form") |> render_submit(%{url_mapper: %{destination_url: ""}}) =~
+      assert view |> element("form") |> render_submit(%{url_mapping: %{destination_url: ""}}) =~
                "can&#39;t be blank"
 
       assert view
              |> element("form")
-             |> render_submit(%{url_mapper: %{destination_url: "not a URL"}}) =~
+             |> render_submit(%{url_mapping: %{destination_url: "not a URL"}}) =~
                "is not a valid URL"
     end
 
@@ -23,7 +23,7 @@ defmodule UrlStordenerWeb.ShortenerLiveTest do
       {:ok, show_view, show_html} =
         view
         |> element("form")
-        |> render_submit(%{url_mapper: %{destination_url: destination}})
+        |> render_submit(%{url_mapping: %{destination_url: destination}})
         |> follow_redirect(conn)
 
       assert show_html =~ destination
