@@ -17,7 +17,8 @@ defmodule UrlStordenerWeb.Router do
   scope "/", UrlStordenerWeb do
     pipe_through :browser
 
-    live "/", ShortenerLive
+    live "/", ShortenerLive.New
+    live "/shorts/:slug", ShortenerLive.Show
   end
 
   # Other scopes may use custom stacks.

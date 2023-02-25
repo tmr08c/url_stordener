@@ -1,4 +1,4 @@
-defmodule UrlStordenerWeb.ShortenerLive do
+defmodule UrlStordenerWeb.ShortenerLive.New do
   use UrlStordenerWeb, :live_view
 
   def mount(_params, _session, socket) do
@@ -6,7 +6,13 @@ defmodule UrlStordenerWeb.ShortenerLive do
   end
 
   def handle_event("generate", %{"url_mapper" => params}, socket) do
-    {:noreply, assign(socket, url_mapper: url_mapper_changeset(params))}
+    url_mapper = url_mapper_changeset(params)
+
+    if url_mapper.valid? do
+      {:noreply, push_navigate(socket, to: ~p"/shorts/slug")}
+    else
+      {:noreply, assign(socket, url_mapper: url_mapper)}
+    end
   end
 
   def render(assigns) do
