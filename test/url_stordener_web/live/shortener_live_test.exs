@@ -17,7 +17,7 @@ defmodule UrlStordenerWeb.ShortenerLiveTest do
     end
 
     test "generating a shortened URL", %{conn: conn} do
-      destination = "http://www.example.com"
+      destination = Faker.Internet.url()
       {:ok, view, _} = live(conn, ~p"/")
 
       {:ok, show_view, show_html} =
@@ -26,7 +26,7 @@ defmodule UrlStordenerWeb.ShortenerLiveTest do
         |> render_submit(%{url_mapper: %{destination_url: destination}})
         |> follow_redirect(conn)
 
-      assert show_html =~ "http://www.example.com"
+      assert show_html =~ destination
 
       assert short =
                show_view
