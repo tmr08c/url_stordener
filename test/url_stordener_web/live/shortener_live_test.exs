@@ -17,16 +17,26 @@ defmodule UrlStordenerWeb.ShortenerLiveTest do
     end
 
     test "generating a shortened URL", %{conn: conn} do
+      destination = "http://www.example.com"
       {:ok, view, _} = live(conn, ~p"/")
 
-      {:ok, _show_view, show_html} =
+      {:ok, show_view, show_html} =
         view
         |> element("form")
-        |> render_submit(%{url_mapper: %{destination_url: "http://www.example.com"}})
+        |> render_submit(%{url_mapper: %{destination_url: destination}})
         |> follow_redirect(conn)
 
       assert show_html =~ "http://www.example.com"
-      assert show_html =~ UrlStordenerWeb.Endpoint.url()
+
+      assert short =
+               show_view
+               |> element(tid("shortened-url"), UrlStordenerWeb.Endpoint.url())
+               |> render()
+
+      assert %{"slug" => slug} =
+               Regex.named_captures(~r/#{UrlStordenerWeb.Endpoint.url()}\/(?<slug>\S+)\</, short)
+
+      assert conn |> get("/#{slug}") |> redirected_to(301) == destination
     end
   end
 end

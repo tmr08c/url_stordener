@@ -28,6 +28,10 @@ defmodule UrlStordenerWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import UrlStordenerWeb.ConnCase
+
+      # Find elements using the test-specific identifier pattern set up in
+      # `UrlStordenerWeb.html_helper`
+      def tid(id), do: "[data-test-#{id}]"
     end
   end
 
