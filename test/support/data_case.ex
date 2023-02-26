@@ -24,6 +24,7 @@ defmodule UrlStordener.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import UrlStordener.DataCase
+      import UrlStordener.Factory
     end
   end
 

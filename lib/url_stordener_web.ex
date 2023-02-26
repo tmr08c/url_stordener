@@ -92,6 +92,16 @@ defmodule UrlStordenerWeb do
 
       # Routes generation with the ~p sigil
       unquote(verified_routes())
+
+      # Helpers to add test-specific identifiers
+      #
+      # WARNING: If you change the pattern, you may need to update our selector
+      # in  `UrlStordenerWeb.ConnCase`
+      if Mix.env() == :prod do
+        def tid(), do: []
+      else
+        def tid(id), do: [{:data, ["test-#{id}": true]}]
+      end
     end
   end
 
