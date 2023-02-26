@@ -17,9 +17,14 @@ defmodule UrlStordenerWeb.StatsLive do
     <% else %>
       <.table id="mappings" rows={@mappings}>
         <:col :let={mapping} label="Slug">
-          <%= UrlStordenerWeb.Endpoint.url() <> "/" <> mapping.slug %>
+          <.slug_link slug={mapping.slug} />
         </:col>
-        <:col :let={mapping} label="Destination"><%= mapping.destination_url %></:col>
+
+        <:col :let={mapping} label="Destination">
+          <.link navigate={mapping.destination_url}>
+            <%= mapping.destination_url %>
+          </.link>
+        </:col>
       </.table>
     <% end %>
     """

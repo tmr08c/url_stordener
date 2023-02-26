@@ -6,7 +6,7 @@ defmodule UrlStordenerWeb.StatsLiveTest do
   test "a useful message appears when there are no URL Mappings", %{conn: conn} do
     {:ok, _, html} = live(conn, ~p"/stats")
 
-    assert html =~ "No mappings"
+    assert html =~ "No shortened URLs"
   end
 
   test "a table of mappings are displayed showing shortened and destination URL", %{conn: conn} do

@@ -10,9 +10,7 @@ defmodule UrlStordenerWeb.ShortenerLive.Show do
   def render(assigns) do
     ~H"""
     <%= @url_mapping.destination_url %> -->
-    <span {tid("shortened-url")}>
-      <%= UrlStordenerWeb.Endpoint.url() <> "/" <> @url_mapping.slug %>
-    </span>
+    <.slug_link slug={@url_mapping.slug} {tid("shortened-url")} />
     """
   end
 end
