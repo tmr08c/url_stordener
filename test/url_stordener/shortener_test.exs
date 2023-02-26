@@ -21,4 +21,12 @@ defmodule UrlStordener.ShortenerTest do
       refute slug1 == slug2
     end
   end
+
+  test "get_url_mapping!/1 looks up URL mappings by slug" do
+    assert_raise Ecto.NoResultsError, fn -> Shortener.get_url_mapping!(Ecto.UUID.generate()) end
+
+    destination = Faker.Internet.url()
+    %{slug: slug} = insert!(:url_mapping, destination_url: destination)
+    assert %{destination_url: ^destination} = Shortener.get_url_mapping!(slug)
+  end
 end

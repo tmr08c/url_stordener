@@ -28,6 +28,7 @@ defmodule UrlStordenerWeb.ConnCase do
       import Plug.Conn
       import Phoenix.ConnTest
       import UrlStordenerWeb.ConnCase
+      import UrlStordener.Factory
 
       # Find elements using the test-specific identifier pattern set up in
       # `UrlStordenerWeb.html_helper`

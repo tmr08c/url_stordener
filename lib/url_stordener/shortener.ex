@@ -19,4 +19,8 @@ defmodule UrlStordener.Shortener do
     end
     |> Repo.insert()
   end
+
+  def get_url_mapping!(slug) do
+    Repo.get_by!(UrlMapping, slug: slug)
+  end
 end

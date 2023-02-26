@@ -34,7 +34,10 @@ defmodule UrlStordenerWeb.ShortenerLiveTest do
                |> render()
 
       assert %{"slug" => slug} =
-               Regex.named_captures(~r/#{UrlStordenerWeb.Endpoint.url()}\/(?<slug>\S+)\</, short)
+               Regex.named_captures(
+                 ~r/#{UrlStordenerWeb.Endpoint.url()}\/(?<slug>\S+)[\s|\<]/,
+                 short
+               )
 
       assert conn |> get("/#{slug}") |> redirected_to(301) == destination
     end
