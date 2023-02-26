@@ -85,6 +85,7 @@ defmodule UrlStordenerWeb do
       import Phoenix.HTML
       # Core UI components and translation
       import UrlStordenerWeb.CoreComponents
+      import UrlStordenerWeb.AppComponents
       import UrlStordenerWeb.Gettext
 
       # Shortcut for generating JS commands

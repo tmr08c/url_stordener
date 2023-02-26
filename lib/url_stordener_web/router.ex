@@ -20,6 +20,8 @@ defmodule UrlStordenerWeb.Router do
     live "/", ShortenerLive.New
     live "/shorts/:slug", ShortenerLive.Show
 
+    live "/stats", StatsLive
+
     get "/:slug", RedirectController, :show
   end
 
