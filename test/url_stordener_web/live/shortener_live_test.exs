@@ -39,7 +39,7 @@ defmodule UrlStordenerWeb.ShortenerLiveTest do
                  short
                )
 
-      assert conn |> get("/#{slug}") |> redirected_to(301) == destination
+      assert conn |> get(~p"/#{slug}") |> redirected_to(301) == destination
     end
   end
 end
