@@ -1,10 +1,12 @@
 defmodule UrlStordenerWeb.RedirectController do
   use UrlStordenerWeb, :controller
 
-  alias UrlStordener.Shortener
+  alias UrlStordener.{Shortener, Stats}
 
   def show(conn, %{"slug" => slug}) do
-    %{destination_url: destination_url} = Shortener.get_url_mapping!(slug)
-    conn |> put_status(301) |> redirect(external: destination_url)
+    mapping = Shortener.get_url_mapping!(slug)
+    Stats.create_event(mapping)
+
+    conn |> put_status(301) |> redirect(external: mapping.destination_url)
   end
 end
