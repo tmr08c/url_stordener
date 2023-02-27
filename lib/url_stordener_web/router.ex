@@ -21,6 +21,7 @@ defmodule UrlStordenerWeb.Router do
     live "/shorts/:slug", ShortenerLive.Show
 
     live "/stats", StatsLive
+    get "/stats/download", StatsController, :index
 
     get "/:slug", RedirectController, :show
   end

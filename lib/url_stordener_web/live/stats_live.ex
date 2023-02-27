@@ -15,6 +15,15 @@ defmodule UrlStordenerWeb.StatsLive do
         Create one!
       </.link>
     <% else %>
+      <.link
+        href={~p"/stats/download"}
+        download
+        class="text-xs float-right mb-6 flex"
+        {tid("download-link")}
+      >
+        <Heroicons.document_arrow_down outline class="h-4 w-4 mr-1" /> Download
+      </.link>
+
       <.table id="mappings" rows={@mappings} row_id={fn mapping -> "url-mapping-#{mapping.id}" end}>
         <:col :let={mapping} label="Slug">
           <.slug_link slug={mapping.slug} />
