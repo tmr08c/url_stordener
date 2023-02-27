@@ -22,4 +22,13 @@ defmodule UrlStordenerWeb.StatsLiveTest do
     assert html =~ UrlStordenerWeb.Endpoint.url() <> "/" <> mapping.slug
     assert html =~ Integer.to_string(event_count)
   end
+
+  test "clicking download link redirects to download controller", %{conn: conn} do
+    insert!(:url_mapping)
+
+    {:ok, view, _html} = live(conn, ~p"/stats")
+
+    view |> element(tid("download-link")) |> render_click()
+    assert_redirect(view, ~p"/stats/download")
+  end
 end
