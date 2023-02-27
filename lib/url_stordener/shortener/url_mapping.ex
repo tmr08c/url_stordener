@@ -26,14 +26,15 @@ defmodule UrlStordener.Shortener.UrlMapping do
     |> unique_constraint(:slug)
   end
 
-  # TODO It's probably worth having a few more tests for this In practice, I
-  # would probably want to consider exploring an existing solution to harden my
-  # approach. Consider reviewing:
+  # NOTE In practice, I would probably want to consider exploring an existing
+  # solution to harden my approach. Consider reviewing:
   # https://elixirforum.com/t/please-how-do-you-validate-url-inputs-in-your-phoenix-projects-forms/28268/18
+
+  @valid_uri_schemes ["http", "https"]
   defp validate_url(changeset) do
     with {:ok, url} <- fetch_change(changeset, :destination_url),
          uri <- URI.parse(url),
-         true <- is_nil(uri.scheme) or is_nil(uri.host) do
+         true <- uri.scheme not in @valid_uri_schemes or is_nil(uri.host) do
       add_error(changeset, :destination_url, "is not a valid URL")
     else
       _ -> changeset

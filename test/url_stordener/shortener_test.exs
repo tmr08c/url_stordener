@@ -13,6 +13,12 @@ defmodule UrlStordener.ShortenerTest do
 
       assert {:error, changeset} = Shortener.create_url_mapping("foo")
       assert "is not a valid URL" in errors_on(changeset).destination_url
+
+      assert {:error, changeset} = Shortener.create_url_mapping("ftp://user@server.com")
+      assert "is not a valid URL" in errors_on(changeset).destination_url
+
+      assert {:ok, _} = Shortener.create_url_mapping("http://www.subdomain.example.com")
+      assert {:ok, _} = Shortener.create_url_mapping("https://www.example.com/some/slug?q=yes")
     end
 
     test "unique slugs are randomly auto-generated" do
