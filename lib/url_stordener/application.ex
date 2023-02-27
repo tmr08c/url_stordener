@@ -17,9 +17,10 @@ defmodule UrlStordener.Application do
       # Start Finch
       {Finch, name: UrlStordener.Finch},
       # Start the Endpoint (http/https)
-      UrlStordenerWeb.Endpoint
+      UrlStordenerWeb.Endpoint,
       # Start a worker by calling: UrlStordener.Worker.start_link(arg)
       # {UrlStordener.Worker, arg}
+      {Task.Supervisor, name: UrlStordener.TaskSupervisor}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
