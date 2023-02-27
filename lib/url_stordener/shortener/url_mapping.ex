@@ -29,7 +29,6 @@ defmodule UrlStordener.Shortener.UrlMapping do
   # NOTE In practice, I would probably want to consider exploring an existing
   # solution to harden my approach. Consider reviewing:
   # https://elixirforum.com/t/please-how-do-you-validate-url-inputs-in-your-phoenix-projects-forms/28268/18
-
   @valid_uri_schemes ["http", "https"]
   defp validate_url(changeset) do
     with {:ok, url} <- fetch_change(changeset, :destination_url),
