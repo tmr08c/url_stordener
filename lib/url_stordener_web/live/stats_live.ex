@@ -15,32 +15,34 @@ defmodule UrlStordenerWeb.StatsLive do
         Create one!
       </.link>
     <% else %>
-      <.link
-        href={~p"/stats/download"}
-        download
-        class="text-xs float-right mb-6 flex"
-        {tid("download-link")}
-      >
-        <Heroicons.document_arrow_down outline class="h-4 w-4 mr-1" /> Download
-      </.link>
+      <div class="flex flex-col">
+        <.link
+          href={~p"/stats/download"}
+          download
+          class="text-xs right mb-6 md:mb-0 self-end flex"
+          {tid("download-link")}
+        >
+          <Heroicons.document_arrow_down outline class="h-4 w-4 mr-1" /> Download
+        </.link>
 
-      <.table id="mappings" rows={@mappings} row_id={fn mapping -> "url-mapping-#{mapping.id}" end}>
-        <:col :let={mapping} label="Slug">
-          <.link navigate={~p"/#{mapping.slug}"}>
-            <%= url(~p"/#{mapping.slug}") %>
-          </.link>
-        </:col>
+        <.table id="mappings" rows={@mappings} row_id={fn mapping -> "url-mapping-#{mapping.id}" end}>
+          <:col :let={mapping} label="Slug">
+            <.link navigate={~p"/#{mapping.slug}"}>
+              <%= url(~p"/#{mapping.slug}") %>
+            </.link>
+          </:col>
 
-        <:col :let={mapping} label="Destination">
-          <.link navigate={mapping.destination_url}>
-            <%= mapping.destination_url %>
-          </.link>
-        </:col>
+          <:col :let={mapping} label="Destination">
+            <.link navigate={mapping.destination_url}>
+              <%= mapping.destination_url %>
+            </.link>
+          </:col>
 
-        <:col :let={mapping} label="Usage">
-          <%= mapping.events %>
-        </:col>
-      </.table>
+          <:col :let={mapping} label="Usage">
+            <%= mapping.events %>
+          </:col>
+        </.table>
+      </div>
     <% end %>
     """
   end
