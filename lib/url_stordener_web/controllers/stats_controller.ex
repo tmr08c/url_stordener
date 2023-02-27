@@ -7,7 +7,7 @@ defmodule UrlStordenerWeb.StatsController do
     rows =
       Enum.map(Stats.mapping_stats(), fn url_mapping ->
         [
-          UrlStordenerWeb.Endpoint.url() <> "/" <> url_mapping.slug,
+          url(~p"/#{url_mapping.slug}"),
           url_mapping.destination_url,
           url_mapping.events
         ]

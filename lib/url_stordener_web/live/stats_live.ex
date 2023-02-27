@@ -26,7 +26,9 @@ defmodule UrlStordenerWeb.StatsLive do
 
       <.table id="mappings" rows={@mappings} row_id={fn mapping -> "url-mapping-#{mapping.id}" end}>
         <:col :let={mapping} label="Slug">
-          <.slug_link slug={mapping.slug} />
+          <.link navigate={~p"/#{mapping.slug}"}>
+            <%= url(~p"/#{mapping.slug}") %>
+          </.link>
         </:col>
 
         <:col :let={mapping} label="Destination">

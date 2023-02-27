@@ -28,14 +28,11 @@ defmodule UrlStordenerWeb.ShortenerLiveTest do
 
       assert show_html =~ destination
 
-      assert short =
-               show_view
-               |> element(tid("shortened-url"), UrlStordenerWeb.Endpoint.url())
-               |> render()
+      short = show_view |> element(tid("shortened-url")) |> render()
 
       assert %{"slug" => slug} =
                Regex.named_captures(
-                 ~r/#{UrlStordenerWeb.Endpoint.url()}\/(?<slug>\S+)[\s|\<]/,
+                 ~r/#{UrlStordenerWeb.Endpoint.url()}\/(?<slug>\S+)[\"|\s|\<]/U,
                  short
                )
 

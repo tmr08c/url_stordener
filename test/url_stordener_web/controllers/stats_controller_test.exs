@@ -13,11 +13,7 @@ defmodule UrlStordenerWeb.StatsControllerTest do
                |> Map.fetch!(:resp_body)
                |> NimbleCSV.RFC4180.parse_string()
 
-      assert [
-               UrlStordenerWeb.Endpoint.url() <> "/" <> mapping1.slug,
-               mapping1.destination_url,
-               "5"
-             ] == mapping1_row
+      assert [url(~p"/#{mapping1.slug}"), mapping1.destination_url, "5"] == mapping1_row
     end
 
     test "there is a row for each mapping", %{conn: conn} do

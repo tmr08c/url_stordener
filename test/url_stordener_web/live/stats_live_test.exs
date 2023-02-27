@@ -19,7 +19,7 @@ defmodule UrlStordenerWeb.StatsLiveTest do
     html = view |> element("tr#url-mapping-#{mapping.id}") |> render
 
     assert html =~ mapping.destination_url
-    assert html =~ UrlStordenerWeb.Endpoint.url() <> "/" <> mapping.slug
+    assert html =~ url(~p"/#{mapping.slug}")
     assert html =~ Integer.to_string(event_count)
   end
 
