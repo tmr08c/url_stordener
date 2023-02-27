@@ -9,8 +9,35 @@ defmodule UrlStordenerWeb.ShortenerLive.Show do
 
   def render(assigns) do
     ~H"""
-    <%= @url_mapping.destination_url %> -->
-    <.slug_link slug={@url_mapping.slug} {tid("shortened-url")} />
+    <.header>New Shortened URL Generated</.header>
+
+    <div class="flex flex-col space-y-8 mt-10">
+      <.input
+        type="text"
+        value={url(~p"/#{@url_mapping.slug}")}
+        label="Your Short URL"
+        name="shortened_url"
+        disabled
+        {tid("shortened-url")}
+        id="js-shortened-url"
+      />
+
+      <.input
+        type="text"
+        value={@url_mapping.destination_url}
+        label="Your Destination URL"
+        name="destination_url"
+        disabled
+      />
+
+      <.button
+        type="button"
+        phx-click={JS.dispatch("phx:copy", to: "#js-shortened-url")}
+        class="flex justify-center items-center"
+      >
+        <Heroicons.clipboard_document outline class="h-4 w-4 mr-2" /> Copy Short URL
+      </.button>
+    </div>
     """
   end
 end

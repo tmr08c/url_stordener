@@ -39,3 +39,14 @@ liveSocket.connect()
 // >> liveSocket.disableLatencySim()
 window.liveSocket = liveSocket
 
+// Custom JS.Dispatch events
+
+// Copying
+//
+// Based on
+// - https://fly.io/phoenix-files/copy-to-clipboard-with-phoenix-liveview/
+// - https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.JS.html#module-custom-js-events-with-js-dispatch-1-and-window-addeventlistener
+window.addEventListener("phx:copy", (event) => {
+  let text = event.target.value;
+  navigator.clipboard.writeText(text)
+})
