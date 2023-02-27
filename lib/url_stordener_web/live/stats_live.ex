@@ -4,7 +4,7 @@ defmodule UrlStordenerWeb.StatsLive do
   alias UrlStordener.Stats
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, mappings: Stats.list_mappings())}
+    {:ok, assign(socket, mappings: Stats.mapping_stats())}
   end
 
   def render(assigns) do
@@ -15,7 +15,7 @@ defmodule UrlStordenerWeb.StatsLive do
         Create one!
       </.link>
     <% else %>
-      <.table id="mappings" rows={@mappings}>
+      <.table id="mappings" rows={@mappings} row_id={fn mapping -> "url-mapping-#{mapping.id}" end}>
         <:col :let={mapping} label="Slug">
           <.slug_link slug={mapping.slug} />
         </:col>
@@ -24,6 +24,10 @@ defmodule UrlStordenerWeb.StatsLive do
           <.link navigate={mapping.destination_url}>
             <%= mapping.destination_url %>
           </.link>
+        </:col>
+
+        <:col :let={mapping} label="Usage">
+          <%= mapping.events %>
         </:col>
       </.table>
     <% end %>

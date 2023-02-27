@@ -6,6 +6,8 @@ defmodule UrlStordener.Shortener.UrlMapping do
     field :destination_url, :string
     field :slug, :string
 
+    has_many :events, UrlStordener.Stats.Event
+
     timestamps()
   end
 

@@ -1,5 +1,5 @@
 defmodule UrlStordenerWeb.ShortenerLiveTest do
-  use UrlStordenerWeb.ConnCase, async: true
+  use UrlStordenerWeb.ConnCase, async: false
 
   import Phoenix.LiveViewTest
 
@@ -40,6 +40,7 @@ defmodule UrlStordenerWeb.ShortenerLiveTest do
                )
 
       assert conn |> get(~p"/#{slug}") |> redirected_to(301) == destination
+      wait_for_pending_event_writes()
     end
   end
 end

@@ -32,7 +32,24 @@ defmodule UrlStordenerWeb.ConnCase do
 
       # Find elements using the test-specific identifier pattern set up in
       # `UrlStordenerWeb.html_helper`
-      def tid(id), do: "[data-test-#{id}]"
+      defp tid(id), do: "[data-test-#{id}]"
+
+      # RedirectController is leveraging Task.Supervisor to write events in
+      # another process without waiting. In tests, this can cause a few problems:
+      #
+      # - the Event record may not be written after the redirect
+      # - the test process may attempt to shutdown, releasing the checked out DB
+      #   connection before the Task is done
+      #
+      # To circumvent these issues, this function will wait for the
+      # TaskSupervisor's children to finish.
+      defp wait_for_pending_event_writes() do
+        for pending <- Task.Supervisor.children(UrlStordener.TaskSupervisor) do
+          Process.monitor(pending)
+
+          assert_receive({:DOWN, _, _, ^pending, _})
+        end
+      end
     end
   end
 
