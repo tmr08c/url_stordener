@@ -18,6 +18,13 @@ defmodule UrlStordenerWeb.ShortenerLive.New do
 
   def render(assigns) do
     ~H"""
+    <.header>
+      Generate a New Shortened URL
+      <:subtitle>
+        Provide a URL and we will generated a shortened version that you can share more easily!
+      </:subtitle>
+    </.header>
+
     <.simple_form
       :let={f}
       for={@url_mapping}
@@ -25,10 +32,10 @@ defmodule UrlStordenerWeb.ShortenerLive.New do
       id="phx-url-mapper-form"
       phx-submit="generate"
     >
-      <.input field={f[:destination_url]} />
+      <.input field={f[:destination_url]} placeholder="http://www.example.com" />
 
       <:actions>
-        <.button>Shorten!</.button>
+        <.button class="w-full">Shorten!</.button>
       </:actions>
     </.simple_form>
     """
