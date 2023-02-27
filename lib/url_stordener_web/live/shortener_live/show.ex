@@ -19,6 +19,7 @@ defmodule UrlStordenerWeb.ShortenerLive.Show do
         name="shortened_url"
         disabled
         {tid("shortened-url")}
+        id="js-shortened-url"
       />
 
       <.input
@@ -28,6 +29,14 @@ defmodule UrlStordenerWeb.ShortenerLive.Show do
         name="destination_url"
         disabled
       />
+
+      <.button
+        type="button"
+        phx-click={JS.dispatch("phx:copy", to: "#js-shortened-url")}
+        class="flex justify-center items-center"
+      >
+        <Heroicons.clipboard_document outline class="h-4 w-4 mr-2" /> Copy Short URL
+      </.button>
     </div>
     """
   end
