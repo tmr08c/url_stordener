@@ -26,6 +26,13 @@ defmodule UrlStordener.ShortenerTest do
       assert {:ok, %{slug: slug2}} = Shortener.create_url_mapping("http://wwww.example.com")
       refute slug1 == slug2
     end
+
+    test "non-unique slugs will be auto-retried" do
+      assert {:ok, _} = Shortener.create_url_mapping("http://www.example.com", 0, "foo")
+      assert {:ok, _} = Shortener.create_url_mapping("http://www.example.com", 0, "foo")
+      # exceeding retry count
+      assert {:error, _} = Shortener.create_url_mapping("http://www.example.com", 3, "foo")
+    end
   end
 
   test "get_url_mapping!/1 looks up URL mappings by slug" do
